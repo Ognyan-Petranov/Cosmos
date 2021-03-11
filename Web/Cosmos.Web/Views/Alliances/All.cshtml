@@ -1,0 +1,43 @@
+﻿@using Cosmos.Web.ViewModels.Alliances
+@model Cosmos.Web.ViewModels.Alliances.ListAllAllianceViewModel
+@{
+    this.ViewData["Title"] = "Alliance page";
+}
+<h1 class="text-light">@this.ViewData["Title"]</h1>
+<div>
+    <form asp-controller="Alliances" asp-action="Create" method="get">
+        <button class="btn btn-outline-light" style="margin: 15px">Create Your Alliance</button>
+    </form>
+</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-light">#</th>
+                            <th scope="col" class="text-light">Alliance Name</th>
+                            <th scope="col" class="text-light">Alliance Leader</th>
+                            <th scope="col" class="text-light">Description</th>
+                            <th scope="col" class="text-light">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.AllAlliances.Count; i++)
+                        {
+                            <tr>
+                                <th scope="row" class="text-light">@(i+1)</th>
+                                <td class="text-light">@Model.AllAlliances.ToArray()[i].Name</td>
+                                <td class="text-light">@Model.AllAlliances.ToArray()[i].AllianceLeader</td>
+                                <td class="text-light">@Model.AllAlliances.ToArray()[i].Description</td>
+                                <td class="text-light">
+                                    <a asp-controller="Alliances" asp-action="Details" asp-route-id="@Model.AllAlliances.ToArray()[i].Id" class="btn btn-primary"><i class="far fa-eye">View</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+   

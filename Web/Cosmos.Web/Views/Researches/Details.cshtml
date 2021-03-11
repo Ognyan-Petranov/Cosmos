@@ -1,0 +1,55 @@
+﻿@model Cosmos.Web.ViewModels.Researches.ResearchViewModel
+@{
+    this.ViewData["Title"] = "View Research Details";
+}
+<h1 class="text-light">@this.ViewData["Title"]</h1>
+<img src="~/images/scifi_3.png" class="img-fluid" width="1200px" />
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col" class="text-light">Research Name</th>
+                <th scope="col" class="text-light">Required Time</th>
+                <th scope="col" class="text-light">Experience</th>
+                <th scope="col" class="text-light">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="research-table">
+            <tr>
+                <td class="text-light">@Model.Name</td>
+                <td id="time-left" class="text-light">@Model.ResearchTime</td>
+                <td class="text-light">@Model.ExperienceGiven</td>
+                <td>
+                    <div class="action text-light" asp-controller="Researches" asp-action="All" asp-route-id="@Model.Id">
+                        <button onclick="countDown()" class="btn btn-primary text-light" id="start-button"><i class="fas fa-eye"></i>Research</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tr>
+        <tr style="border-bottom:1px solid black" class="text-light">
+            <td colspan="100%" class="text-center">Description</td>
+        </tr>
+        <tr style="border-bottom:1px solid black" class="text-light">
+            <td colspan="100%">Some description here that usually comes from the model, but given that this is a test version it is a random, handwritten text.</td>
+        </tr>
+    </table>
+</div>
+<script>
+    var rows = document.getElementsByTagName('tr')
+    for (var i = 0; i < rows.length; i++) {
+        timeLeft = 30
+        rows[i].addEventListener('onCLick', countDown)
+        const timeLeftDisplay = document.querySelector('#time-left')
+        const startButton = document.querySelector('#start-button')
+        function countDown() {
+            setInterval(function () {
+                if (timeLeft <= 0) {
+                    clearInterval(timeLeft = 0)
+                }
+                timeLeftDisplay.innerHTML = timeLeft
+                timeLeft -= 1
+            }, 1000)
+        }
+    }
+</script>

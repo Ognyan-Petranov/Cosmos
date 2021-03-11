@@ -1,0 +1,28 @@
+﻿@model Cosmos.Web.ViewModels.Players.ListAllPlayersViewModel
+@{
+    this.ViewData["Title"] = "Player Details";
+}
+<h1>@this.ViewData["Title"]</h1>
+<div class="row mt-2 mb-4">
+    @foreach (var player in Model.AllPlayers)
+    {
+        <div class="card col-6 col-lg-3 game-card">
+            <img src="data:image/jpeg;base64, @player.Image" class="card-img-top img-fluid card-image">
+            <div class="card-body">
+                <h5 class="card-title text-center" data-toggle="tooltip" data-placement="bottom"
+                    title="Description:<br>@player.Moto">
+                    @player.PlayerName
+                </h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center">@player.Moto</li>
+                    <li class="list-group-item">
+                        <p class="attack-stat">Rank: @player.Rank</p>
+                        <p class="health-stat">Experience: @player.Experience</p>
+                        <p class="alliance-stat">Alliance: @player.Alliance</p>
+                    </li>
+                </ul>
+                <a href="/Cards/AddToCollection?cardId=@player.Id" class="btn btn-block btn-primary">Invite to Alliance</a>
+            </div>
+        </div>
+    }
+</div>

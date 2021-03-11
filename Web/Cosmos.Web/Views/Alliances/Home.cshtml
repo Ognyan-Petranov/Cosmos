@@ -1,0 +1,75 @@
+﻿@model Cosmos.Web.ViewModels.Alliances.AllianceViewModel
+@using Cosmos.Data.Models;
+@using System.Security.Claims;
+@inject Cosmos.Services.Data.IPlayersService playersService
+@{
+    this.ViewData["Title"] = "Alliance home page";
+    var applicationUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+    string playerId = this.playersService.GetPlayerId(applicationUserId);
+    string playerName = this.playersService.GetPlayer(applicationUserId).PlayerName;
+}
+
+<h1>@this.ViewData["Title"]</h1>
+<h2>@this.Model.Name</h2>
+<img src="data:image/jpeg;base64,@Model.RenderImage" class="img-fluid" />
+<h3 class="container">@this.Model.Description</h3>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Player Name</th>
+                        <th scope="col">Experience</th>
+                        <th scope="col">Rank</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Players.Count; i++)
+                    {
+                        <tr>
+                            <th scope="row">@(i+1)</th>
+                            <td>@Model.Players.ToArray()[i].PlayerName</td>
+                            <td>@Model.Players.ToArray()[i].Experience</td>
+                            <td>@Model.Players.ToArray()[i].Rank</td>
+                            <td>
+                                <a asp-controller="Players" asp-action="Details" asp-route-id="@Model.Players.ToArray()[i].Id" class="btn btn-primary"><i class="far fa-eye">Player Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@if (this.playersService.CheckIfPlayerIsLeader(playerName, @Model.Id))
+{
+    <partial name="_AddNewAllianceImagePartial" />
+}
+<hr />
+@if (!this.playersService.CheckIfPlayerIsInAlliance(playerName))
+{
+    <form asp-controller="Alliances" asp-action="Join" asp-route-id="@Model.Id">
+        <button class="btn btn-outline-secondary">Join Alliance</button>
+    </form>
+    <hr />
+}
+@if (this.playersService.CheckIfPlayerIsInAlliance(playerName))
+{
+    @if (this.playersService.GetPlayer(applicationUserId).AllianceId == @Model.Id)
+    {
+        <form method="post" asp-controller="Alliances" asp-action="Leave" asp-route-id="@Model.Id">
+            <button class="btn btn-danger">Leave Alliance</button>
+        </form>
+        <hr />
+    }
+}
+@if (this.playersService.CheckIfPlayerIsLeader(playerName, Model.Id))
+{
+    <form method="post" asp-controller="Alliances" asp-action="Disband" asp-route-id="@Model.Id">
+        <button class="btn btn-danger">Disband Alliance</button>
+    </form>
+}

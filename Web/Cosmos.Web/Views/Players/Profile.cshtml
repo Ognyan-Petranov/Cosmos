@@ -1,0 +1,35 @@
+﻿@model Cosmos.Web.ViewModels.Players.PlayerViewModel
+
+@{
+    this.ViewData["Title"] = "Personal Profile";
+}
+<h1>@this.ViewData["Title"]</h1>
+<h5 class="text-center">Here you can control your profile and how you appear to other players.</h5>
+<div class="row mt-2 mb-4">
+    <div class="card col-6 col-lg-3 game-card">
+        <img src="data:image/jpeg;base64, @Model.Image" class="card-img-top img-fluid card-image">
+        <div class="card-body">
+            <h5 class="card-title text-center" data-toggle="tooltip" data-placement="bottom"
+                title="Description:<br>@Model.Moto">
+                @Model.PlayerName
+            </h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-center">@Model.Moto</li>
+                <li class="list-group-item">
+                    <p class="attack-stat">Rank: @Model.Rank</p>
+                    <p class="health-stat">Experience: @Model.Experience</p>
+                </li>
+            </ul>
+            <form asp-controller="Players" asp-action="ChangeProfilePicture" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label asp-for="@Model.Image"></label>
+                    <input asp-for="@Model.Image" class="form-control" type="file" id="image" name="image">
+                    <span asp-validation-for="@Model.Image" class="text-danger"></span>
+                </div>
+                <hr />
+                <input asp-for="@Model.Id" type="hidden">
+                <button type="submit" class="btn btn-primary" asp-controller="Players" asp-action="ChangeProfilePicture">Upload</button>
+            </form>
+        </div>
+    </div>
+</div>

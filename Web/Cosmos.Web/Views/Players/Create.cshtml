@@ -1,0 +1,21 @@
+﻿@model Cosmos.Web.ViewModels.Players.CreatePlayerInputModel
+@{
+    this.ViewData["Title"] = "Create new player";
+    var races = this.Model.Races.Select(x => new SelectListItem(x.Value, x.Key));
+}
+
+<form method="post" class="col-md-6 offset-md-3" enctype="multipart/form-data">
+    <h1>@this.ViewData["Title"]</h1>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="PlayerName"></label>
+        <input asp-for="PlayerName" class="form-control" />
+        <span asp-validation-for="PlayerName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RaceId">Select race:</label>
+        <select asp-for="RaceId" class="form-control" asp-items="races"></select>
+        <span asp-validation-for="RaceId" class="text-danger"></span>
+    </div>
+    <input type="submit" class="btn btn-primary" />
+</form>

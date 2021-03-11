@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.2" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.205" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\Cosmos.Data.Common\Cosmos.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Data\Cosmos.Data.Models\Cosmos.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\Cosmos.Data\Cosmos.Data.csproj" />
+    <ProjectReference Include="..\..\Web\Cosmos.Web.ViewModels\Cosmos.Web.ViewModels.csproj" />
+    <ProjectReference Include="..\Cosmos.Services.Mapping\Cosmos.Services.Mapping.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="PlayersService.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+</Project>

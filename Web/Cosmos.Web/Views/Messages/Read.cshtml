@@ -1,0 +1,21 @@
+﻿@model Cosmos.Web.ViewModels.Messages.MessageViewModel
+@{
+    this.ViewData["Title"] = "View Message Details";
+}
+<h1 class="text-light">@this.ViewData["Title"]</h1>
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col" class="text-light">Sender: @Model.SenderName</th>
+            </tr>
+            <tr>
+                <th scope="col" class="text-light">Subject: @Model.Title</th>
+            </tr>
+
+        </thead>
+        <tr style="border-bottom:1px solid black" class="text-light">
+            <td class="text-light" rowspan="10">@Model.Content</td>
+        </tr>
+    </table>
+</div>

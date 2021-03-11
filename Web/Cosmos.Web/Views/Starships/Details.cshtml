@@ -1,0 +1,24 @@
+﻿@model Cosmos.Web.ViewModels.Starships.StarshipViewModel
+@{ 
+    this.ViewData["Title"] = "Detailed information about your starship!";
+}
+<h1>@this.ViewData["Title"]</h1>
+<div>
+    <div class="card" style="width: 14rem; margin-top: auto">
+        <img src="data:image/jpeg;base64, @Model.Image" class="card-img-top">
+        <div class="card-body" style="font-size: 12px">
+            <h5 class="card-title">@Model.Name</h5>
+            <p class="card-text">Fly like an eagle.</p>
+            <p>Weapon Slots: </p>
+            <p>L/M/H</p>
+            <p>@Model.LightWeaponSlots / @Model.MediumWeaponSlots / @Model.HeavyWeaponSlots</p>
+            <p>Shields: @Model.Shields</p>
+            <p>Armor: @Model.Armor</p>
+            <p>Cost: @Model.Cost</p>
+            @*<a href="/Starships/Buy?Id=@Model.Id" class="btn btn-outline-light" controller="Starships" action="Buy">Buy Ship</a>*@
+            <form asp-controller="Starships" asp-action="Buy" asp-route-id="@Model.Id">
+                <button class="btn btn-outline-secondary">Buy Ship</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+﻿@model Cosmos.Web.ViewModels.Starships.ListAllStarshipsViewModel
+
+
+<div class="row mt-2 mb-4">
+    @foreach (var starship in Model.AllShips)
+    {
+        <div class="card" style="width: 14rem; margin-top: auto">
+            <img src="data:image/jpeg;base64, @starship.Image" class="card-img-top">
+            <div class="card-body" style="font-size: 12px">
+                <h5 class="card-title">@starship.Name</h5>
+                <p class="card-text">Fly like an eagle.</p>
+                <p>Weapon Slots: </p>
+                <p>L/M/H</p>
+                <p>@starship.LightWeaponSlots / @starship.MediumWeaponSlots / @starship.HeavyWeaponSlots</p>
+                <p>Shields: @starship.Shields</p>
+                <p>Armor: @starship.Armor</p>
+                <p>Cost: @starship.Cost</p>
+                <a href="Details?Id=@starship.Id" class="btn btn-outline-light">View Details</a>
+                <form asp-controller="Starships" asp-action="Buy" asp-route-id="@starship.Id">
+                    <button class="btn btn-outline-secondary">Buy Ship</button>
+                </form>
+                @*<a href="/Starships/Buy?shipId=@starship.Id" class="btn btn-outline-light">Buy Ship</a>*@
+            </div>
+        </div>
+    }
+</div>

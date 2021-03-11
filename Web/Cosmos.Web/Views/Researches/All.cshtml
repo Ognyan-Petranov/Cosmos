@@ -1,0 +1,89 @@
+﻿@model Cosmos.Web.ViewModels.Researches.ListAllResearchesViewModel
+@{
+    this.ViewData["Title"] = "Welcome to the Research Center";
+}
+<h1 class="text-light">@this.ViewData["Title"]</h1>
+<img src="~/images/Sci_fi_interior_by_blueroguevyse-d76q4py.webp" class="img-fluid" style="margin-left: 15px" width="1080px" />
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-light">#</th>
+                        <th scope="col" class="text-light">Research Name</th>
+                        <th scope="col" class="text-light">Required Time</th>
+                        <th scope="col" class="text-light">Experience</th>
+                        <th scope="col" class="text-light">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="research-table">
+                    @for (int i = 0; i < Model.AllResearches.Count; i++)
+                    {
+                        <tr>
+                            <th scope="row" class="text-light">@(i+1)</th>
+                            <td class="text-light">@Model.AllResearches.ToArray()[i].Name</td>
+                            <td id="time-left" class="text-light">@Model.AllResearches.ToArray()[i].ResearchTime</td>
+                            <td class="text-light">@Model.AllResearches.ToArray()[i].ExperienceGiven</td>
+                            <td>
+                                <div class="action text-light" asp-controller="Researches" asp-action="All" asp-route-id="@Model.AllResearches.ToArray()[i].Id">
+                                    <button onclick="countDown()" class="btn btn-primary text-light" id="start-button"><i class="fas fa-eye"></i>Research</button>
+                                    <a class="btn btn-secondary text-light" asp-controller="Researches" asp-action="Details" asp-route-id="@Model.AllResearches.ToArray()[i].Id"><i class="fas fa-eye"></i>Details</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        @*document.getElementById("research-table").addEventListener("onclick", function (e) {
+            if (e.target && e.target.matches()) {
+
+            }
+        }
+            var time = new HTMLTimeElement(@Model.AllResearches.ToList()[0].ResearchTime)
+        
+        for (var j = 0; j < rows.length; j++) {
+            var x = setInterval(function countdown() {
+                var distance = new Date().getDate() + time;
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                minutes = minutes < 10 ?? '0' + minutes : minutes;
+                seconds = seconds < 10 ?? '0' + seconds : seconds;
+
+                document.getElementById("time-left").innerHTML = days + "d " + hours + "h "
+                    + minutes + "m " + seconds + "s ";
+
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("time-left ${j}").innerHTML = "Research completed!";
+                }
+            }, 1000);
+        }*@
+        var rows = document.getElementsByTagName('tr')
+        for (var i = 0; i < rows.length; i++) {
+            timeLeft = 30
+            rows[i].addEventListener('onCLick', countDown)
+            const timeLeftDisplay = document.querySelector('#time-left')
+            const startButton = document.querySelector('#start-button')
+            function countDown() {
+                setInterval(function () {
+                    if (timeLeft <= 0) {
+                        clearInterval(timeLeft = 0)
+                    }
+                    timeLeftDisplay.innerHTML = timeLeft
+                    timeLeft -= 1
+                }, 1000)
+            }
+        }
+    </script>
+}

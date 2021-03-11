@@ -1,0 +1,11 @@
+﻿@model Cosmos.Web.ViewModels.Alliances.AllianceViewModel
+<form asp-controller="Alliances" asp-action="Home" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="NewAllianceImage"></label>
+        <input asp-for="NewAllianceImage" class="form-control" type="file" id="newImage" name="newImage">
+        <span asp-validation-for="NewAllianceImage" class="text-danger"></span>
+    </div>
+    <hr />
+    <input asp-for="@Model.Id" type="hidden">
+    <button type="submit" class="btn btn-primary" asp-controller="Alliances" asp-action="ChangeAllianceImage">Upload</button>
+</form>
