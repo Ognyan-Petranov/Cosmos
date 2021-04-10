@@ -156,7 +156,14 @@
                 return this.RedirectToAction("Error");
             }
 
-            await this.imageFileServices.AddImage(newImage.OpenReadStream(), id);
+            try
+            {
+                await this.imageFileServices.AddImage(newImage.OpenReadStream(), id);
+            }
+            catch
+            {
+            }
+
             return this.RedirectToAction("Home", new RouteValueDictionary(new { controller = "Alliances", action = "Home", Id = id }));
         }
     }

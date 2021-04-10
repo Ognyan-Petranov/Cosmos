@@ -93,7 +93,14 @@
         [TypeFilter(typeof(ValidatePlayerIsCreatedActionFilter))]
         public async Task<IActionResult> ChangeProfilePicture(IFormFile image, string id)
         {
+            try
+            {
             await this.imagesService.AddImage(image.OpenReadStream(), id);
+            }
+            catch
+            {
+            }
+
             return this.RedirectToAction("Profile", new RouteValueDictionary(new { controller = "Players", action = "Profile", Id = id }));
         }
     }
