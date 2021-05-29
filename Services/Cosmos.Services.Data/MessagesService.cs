@@ -1,15 +1,15 @@
-﻿using Cosmos.Data.Common.Repositories;
-using Cosmos.Data.Models;
-using Cosmos.Services.Mapping;
-using Cosmos.Web.ViewModels.Messages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cosmos.Services.Data
+﻿namespace Cosmos.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Cosmos.Data.Common.Repositories;
+    using Cosmos.Data.Models;
+    using Cosmos.Services.Mapping;
+    using Cosmos.Web.ViewModels.Messages;
+
     public class MessagesService : IMessagesService
     {
         private readonly IRepository<Message> messagesRepository;
@@ -45,7 +45,13 @@ namespace Cosmos.Services.Data
 
         public ICollection<MessageViewModel> ViewAllMessages(string id)
         {
-            return this.messagesRepository.AllAsNoTracking().Where(x => x.ReceiverId == id).To<MessageViewModel>().ToList();
+            return this.messagesRepository.AllAsNoTracking().Where(x => x.ReceiverId == id).Select(x => new MessageViewModel
+            {
+                Id = x.Id,
+                Content = x.Content,
+                SenderName = x.Sender.PlayerName,
+                Title = x.Title,
+            }).ToList();
         }
 
         public MessageViewModel GetMessageById(string id)

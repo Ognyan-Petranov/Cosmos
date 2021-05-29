@@ -21,7 +21,7 @@
                 {
                     Name = $"Research{i + 1}",
                     Cost = 5_000,
-                    ResearchTime = TimeSpan.FromSeconds(30),
+                    ResearchTime = TimeSpan.FromHours(1.5),
                     ExperienceGiven = 10_000,
                 });
             }

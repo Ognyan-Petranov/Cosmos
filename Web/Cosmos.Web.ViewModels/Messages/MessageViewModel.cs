@@ -4,7 +4,7 @@
     using Cosmos.Data.Models;
     using Cosmos.Services.Mapping;
 
-    public class MessageViewModel : IMapFrom<Message>, IHaveCustomMappings
+    public class MessageViewModel
     {
         public string Id { get; set; }
 
@@ -14,9 +14,9 @@
 
         public string SenderName { get; set; }
 
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<Message, MessageViewModel>().ForMember(x => x.SenderName, opt => opt.MapFrom(x => x.Sender.PlayerName));
-        }
+        //public void CreateMappings(IProfileExpression configuration)
+        //{
+        //    configuration.CreateMap<Message, MessageViewModel>().ForMember(x => x.SenderName, opt => opt.MapFrom(x => x.Sender.PlayerName));
+        //}
     }
 }

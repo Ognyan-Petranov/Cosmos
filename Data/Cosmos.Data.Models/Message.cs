@@ -1,9 +1,9 @@
 ﻿namespace Cosmos.Data.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
     using Cosmos.Data.Common.Models;
 
     public class Message : BaseDeletableModel<string>
